@@ -19,10 +19,9 @@ public class OrderDetailController {
     private OrderDetailService orderdetailService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllOrderDetails(@RequestParam(required = false, defaultValue = "") String name,
-                                                  @RequestParam(name = "page", defaultValue = "1") int page,
+    public ResponseEntity<?> getAllOrderDetails(@RequestParam(name = "page", defaultValue = "1") int page,
                                                   @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
-        List<OrderDetail> orderdetailList = orderdetailService.list();
+        List<OrderDetail> orderdetailList = orderdetailService.list(page, pageSize);
         return ResponseUtil.getSuccessResponse(orderdetailList);
     }
 
@@ -55,7 +54,7 @@ public class OrderDetailController {
     public ResponseEntity<?> updateOrderDetail(@PathVariable Long id, @RequestBody OrderDetail orderdetail) {
         OrderDetail target = orderdetailService.getById(id);
         if (target != null) {
-            orderdetail.setId(id);
+            orderdetail.setDetailId(id);
             orderdetailService.updateById(orderdetail);
             return ResponseUtil.getSuccessResponse(orderdetail);
         }

@@ -19,10 +19,10 @@ public class DishController {
     private DishService dishService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllDishs(@RequestParam(required = false, defaultValue = "") String name,
+    public ResponseEntity<?> getAllDishes(@RequestParam(name = "dish_name", required = false, defaultValue = "") String dishName,
                                                   @RequestParam(name = "page", defaultValue = "1") int page,
                                                   @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
-        List<Dish> dishList = dishService.list();
+        List<Dish> dishList = dishService.list(dishName, page, pageSize);
         return ResponseUtil.getSuccessResponse(dishList);
     }
 
@@ -55,7 +55,7 @@ public class DishController {
     public ResponseEntity<?> updateDish(@PathVariable Long id, @RequestBody Dish dish) {
         Dish target = dishService.getById(id);
         if (target != null) {
-            dish.setId(id);
+            dish.setDishId(id);
             dishService.updateById(dish);
             return ResponseUtil.getSuccessResponse(dish);
         }

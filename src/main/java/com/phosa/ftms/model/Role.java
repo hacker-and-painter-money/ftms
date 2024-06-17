@@ -13,7 +13,7 @@ public class Role {
 
   @JsonProperty("role_id")
   @TableId(type = IdType.AUTO)
-  private long roleId;
+  private Long roleId;
   @JsonProperty("role_name")
   private String roleName;
 }

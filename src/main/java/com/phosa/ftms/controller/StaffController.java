@@ -22,7 +22,7 @@ public class StaffController {
     public ResponseEntity<?> getAllStaffs(@RequestParam(required = false, defaultValue = "") String name,
                                                   @RequestParam(name = "page", defaultValue = "1") int page,
                                                   @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
-        List<Staff> staffList = staffService.list();
+        List<Staff> staffList = staffService.list(name, page, pageSize);
         return ResponseUtil.getSuccessResponse(staffList);
     }
 
@@ -55,10 +55,20 @@ public class StaffController {
     public ResponseEntity<?> updateStaff(@PathVariable Long id, @RequestBody Staff staff) {
         Staff target = staffService.getById(id);
         if (target != null) {
-            staff.setId(id);
+            staff.setStaffId(id);
             staffService.updateById(staff);
             return ResponseUtil.getSuccessResponse(staff);
         }
         return ResponseUtil.getFailResponse(ErrorResponse.INVALID_ID);
+    }
+
+    //login
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Staff staff) {
+        Staff target = staffService.login(staff.getName(), staff.getPassword());
+        if (target != null) {
+            return ResponseUtil.getSuccessResponse(target);
+        }
+        return ResponseUtil.getFailResponse(ErrorResponse.WRONG_PASSWORD);
     }
 }

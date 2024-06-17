@@ -14,7 +14,7 @@ public class Category {
 
     @JsonProperty("category_id")
     @TableId(type = IdType.AUTO)
-    private long categoryId;
+    private Long categoryId;
     @JsonProperty("category_name")
     private String categoryName;
 

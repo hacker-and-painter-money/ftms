@@ -19,10 +19,10 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllUsers(@RequestParam(required = false, defaultValue = "") String name,
+    public ResponseEntity<?> getAllUsers(@RequestParam(required = false, defaultValue = "") String username,
                                                   @RequestParam(name = "page", defaultValue = "1") int page,
                                                   @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
-        List<User> userList = userService.list();
+        List<User> userList = userService.list(username, page, pageSize);
         return ResponseUtil.getSuccessResponse(userList);
     }
 
@@ -55,7 +55,7 @@ public class UserController {
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user) {
         User target = userService.getById(id);
         if (target != null) {
-            user.setId(id);
+            user.setUserId(id);
             userService.updateById(user);
             return ResponseUtil.getSuccessResponse(user);
         }

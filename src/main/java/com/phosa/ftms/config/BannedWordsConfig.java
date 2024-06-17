@@ -13,17 +13,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Configuration
+//@Configuration
 public class BannedWordsConfig {
-
-    @Value("classpath:banned-words.txt")
-    private Resource bannedWordsResource;
-
-    @Bean
-    public List<String> bannedWords() throws IOException {
-        try (InputStream inputStream = bannedWordsResource.getInputStream();
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-            return reader.lines().collect(Collectors.toList());
-        }
-    }
+//
+//    @Value("classpath:banned-words.txt")
+//    private Resource bannedWordsResource;
+//
+//    @Bean
+//    public List<String> bannedWords() throws IOException {
+//        try (InputStream inputStream = bannedWordsResource.getInputStream();
+//             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+//            return reader.lines().collect(Collectors.toList());
+//        }
+//    }
 }

@@ -14,12 +14,12 @@ public class Dish {
 
   @JsonProperty("dish_id")
   @TableId(type = IdType.AUTO)
-  private long dishId;
+  private Long dishId;
   @JsonProperty("dish_name")
   private String dishName;
   @JsonProperty("category_id")
-  private long categoryId;
-  private double price;
+  private Long categoryId;
+  private Double price;
   private String description;
   @JsonProperty("image_url")
   private String imageUrl;

@@ -14,9 +14,9 @@ public class CustomerInfo {
 
     @JsonProperty("customer_id")
     @TableId(type = IdType.AUTO)
-    private long customerId;
+    private Long customerId;
     @JsonProperty("user_id")
-    private long userId;
+    private Long userId;
     private String email;
     @JsonProperty("phone_number")
     private String phoneNumber;

@@ -19,10 +19,9 @@ public class CustomerInfoController {
     private CustomerInfoService customerinfoService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllCustomerInfos(@RequestParam(required = false, defaultValue = "") String name,
-                                                  @RequestParam(name = "page", defaultValue = "1") int page,
+    public ResponseEntity<?> getAllCustomerInfos(@RequestParam(name = "page", defaultValue = "1") int page,
                                                   @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
-        List<CustomerInfo> customerinfoList = customerinfoService.list();
+        List<CustomerInfo> customerinfoList = customerinfoService.list(page, pageSize);
         return ResponseUtil.getSuccessResponse(customerinfoList);
     }
 
@@ -55,7 +54,7 @@ public class CustomerInfoController {
     public ResponseEntity<?> updateCustomerInfo(@PathVariable Long id, @RequestBody CustomerInfo customerinfo) {
         CustomerInfo target = customerinfoService.getById(id);
         if (target != null) {
-            customerinfo.setId(id);
+            customerinfo.setCustomerId(id);
             customerinfoService.updateById(customerinfo);
             return ResponseUtil.getSuccessResponse(customerinfo);
         }

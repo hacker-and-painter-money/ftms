@@ -15,13 +15,13 @@ public class OrderDetail {
 
   @JsonProperty("detail_id")
   @TableId(type = IdType.AUTO)
-  private long detailId;
+  private Long detailId;
   @JsonProperty("order_id")
-  private long orderId;
+  private Long orderId;
   @JsonProperty("dish_id")
-  private long dishId;
-  private int quantity;
-  private double price;
+  private Long dishId;
+  private Integer quantity;
+  private Double price;
   @JsonProperty("created_at")
   @TableField(fill = FieldFill.INSERT)
   private Date createdAt;

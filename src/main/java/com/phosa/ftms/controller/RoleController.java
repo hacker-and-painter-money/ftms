@@ -19,10 +19,10 @@ public class RoleController {
     private RoleService roleService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllRoles(@RequestParam(required = false, defaultValue = "") String name,
+    public ResponseEntity<?> getAllRoles(@RequestParam(name = "role_name", required = false, defaultValue = "") String roleName,
                                                   @RequestParam(name = "page", defaultValue = "1") int page,
                                                   @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
-        List<Role> roleList = roleService.list();
+        List<Role> roleList = roleService.list(roleName, page, pageSize);
         return ResponseUtil.getSuccessResponse(roleList);
     }
 
@@ -55,7 +55,7 @@ public class RoleController {
     public ResponseEntity<?> updateRole(@PathVariable Long id, @RequestBody Role role) {
         Role target = roleService.getById(id);
         if (target != null) {
-            role.setId(id);
+            role.setRoleId(id);
             roleService.updateById(role);
             return ResponseUtil.getSuccessResponse(role);
         }

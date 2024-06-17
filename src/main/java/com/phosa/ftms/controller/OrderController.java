@@ -19,10 +19,10 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllOrders(@RequestParam(required = false, defaultValue = "") String name,
+    public ResponseEntity<?> getAllOrders(@RequestParam(required = false, defaultValue = "") String status,
                                                   @RequestParam(name = "page", defaultValue = "1") int page,
                                                   @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
-        List<Order> orderList = orderService.list();
+        List<Order> orderList = orderService.list(status, page, pageSize);
         return ResponseUtil.getSuccessResponse(orderList);
     }
 
@@ -55,7 +55,7 @@ public class OrderController {
     public ResponseEntity<?> updateOrder(@PathVariable Long id, @RequestBody Order order) {
         Order target = orderService.getById(id);
         if (target != null) {
-            order.setId(id);
+            order.setOrderId(id);
             orderService.updateById(order);
             return ResponseUtil.getSuccessResponse(order);
         }

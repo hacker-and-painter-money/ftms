@@ -22,7 +22,7 @@ public class CategoryController {
     public ResponseEntity<?> getAllCategorys(@RequestParam(required = false, defaultValue = "") String name,
                                                   @RequestParam(name = "page", defaultValue = "1") int page,
                                                   @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
-        List<Category> categoryList = categoryService.list();
+        List<Category> categoryList = categoryService.list(name, page, pageSize);
         return ResponseUtil.getSuccessResponse(categoryList);
     }
 
@@ -55,7 +55,7 @@ public class CategoryController {
     public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody Category category) {
         Category target = categoryService.getById(id);
         if (target != null) {
-            category.setId(id);
+            category.setCategoryId(id);
             categoryService.updateById(category);
             return ResponseUtil.getSuccessResponse(category);
         }

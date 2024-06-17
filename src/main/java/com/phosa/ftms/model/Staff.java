@@ -12,9 +12,9 @@ public class Staff {
 
   @JsonProperty("staff_id")
   @TableId(type = IdType.AUTO)
-  private long staffId;
+  private Long staffId;
   private String name;
   @JsonProperty("role_id")
-  private long roleId;
+  private Long roleId;
   private String password;
 }

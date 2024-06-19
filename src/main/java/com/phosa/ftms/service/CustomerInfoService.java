@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class CustomerInfoService extends ServiceImpl<CustomerInfoMapper, CustomerInfo> {
 
-    // Add other CRUD or business-specific methods here
     public List<CustomerInfo> list(int page, int pageSize) {
         QueryWrapper<CustomerInfo> queryWrapper = new QueryWrapper<>();
         return page(new Page<>(page, pageSize), queryWrapper).getRecords();

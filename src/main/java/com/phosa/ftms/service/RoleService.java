@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 public class RoleService extends ServiceImpl<RoleMapper, Role> {
 
-    // Add other CRUD or business-specific methods here
     public List<Role> list(String name, int page, int pageSize) {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
         if (name != null && !name.isEmpty()) {

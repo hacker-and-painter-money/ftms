@@ -12,16 +12,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orderdetail")
+@RequestMapping("/order_detail")
 public class OrderDetailController {
 
     @Autowired
     private OrderDetailService orderdetailService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAllOrderDetails(@RequestParam(name = "page", defaultValue = "1") int page,
+    public ResponseEntity<?> getAllOrderDetails(@RequestParam(name = "order_id") long orderId,
+                                                  @RequestParam(name = "page", defaultValue = "1") int page,
                                                   @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
-        List<OrderDetail> orderdetailList = orderdetailService.list(page, pageSize);
+        List<OrderDetail> orderdetailList = orderdetailService.list(orderId, page, pageSize);
         return ResponseUtil.getSuccessResponse(orderdetailList);
     }
 

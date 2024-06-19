@@ -13,7 +13,6 @@ import java.util.List;
 
 @Service
 public class StaffService extends ServiceImpl<StaffMapper, Staff> {
-    // Example method for login (if applicable)
     public Staff login(String identifier, String password) {
         QueryWrapper<Staff> wrapper = new QueryWrapper<>();
         wrapper.eq("name", identifier);
@@ -38,8 +37,4 @@ public class StaffService extends ServiceImpl<StaffMapper, Staff> {
         return page(new Page<>(page, pageSize), queryWrapper).getRecords();
     }
 
-    public static void main(String[] args) throws Exception {
-        String encrypt = AesEncryptUtil.encrypt("123456");
-        System.out.println(encrypt);
-    }
 }

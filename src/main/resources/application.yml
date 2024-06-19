@@ -1,8 +1,8 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: mysqlHHH123...
+    username: ftms
+    password: ftms123
 #    password: 123456
     url: jdbc:mysql://gz-cdb-fg5tqemn.sql.tencentcdb.com:63279/ftms
 #    url: jdbc:mysql://localhost:3306/ftms
@@ -18,6 +18,6 @@ server:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  type-aliases-package: com.phosa.cmas.model
+  type-aliases-package: com.phosa.ftms.model
 
 

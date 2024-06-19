@@ -2,6 +2,7 @@ package com.phosa.ftms.controller;
 
 import com.phosa.ftms.constant.ErrorResponse;
 import com.phosa.ftms.model.User;
+import com.phosa.ftms.service.CustomerInfoService;
 import com.phosa.ftms.service.UserService;
 import com.phosa.ftms.util.DateUtil;
 import com.phosa.ftms.util.ResponseUtil;
@@ -17,6 +18,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private CustomerInfoService customerInfoService;
 
     @GetMapping("")
     public ResponseEntity<?> getAllUsers(@RequestParam(required = false, defaultValue = "") String username,
@@ -45,6 +48,7 @@ public class UserController {
     @PostMapping("")
     public ResponseEntity<?> addUser(@RequestBody User user) {
         boolean b = userService.save(user);
+        customerInfoService.save(user.getCustomerInfo());
         if (b) {
             return ResponseUtil.getSuccessResponse(user);
         }
@@ -60,5 +64,15 @@ public class UserController {
             return ResponseUtil.getSuccessResponse(user);
         }
         return ResponseUtil.getFailResponse(ErrorResponse.INVALID_ID);
+    }
+
+    @GetMapping("/phone")
+    public ResponseEntity<?> getUserByPhone(@RequestParam String phone) {
+        User userByPhone = userService.getUserByPhone(phone);
+        if (userByPhone != null ) {
+            return ResponseUtil.getSuccessResponse(userByPhone);
+        }
+        return ResponseUtil.getFailResponse(ErrorResponse.PHONE_NOT_EXIST);
+
     }
 }

@@ -12,12 +12,21 @@ import java.util.List;
 
 @Service
 public class OrderService extends ServiceImpl<OrderMapper, Order> {
-    // Add other CRUD or business-specific methods here
+    private final OrderDetailService orderDetailService;
+
+    public OrderService(OrderDetailService orderDetailService) {
+        this.orderDetailService = orderDetailService;
+    }
+
     public List<Order> list(String status, int page, int pageSize) {
         QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
         if (status != null && !status.isEmpty()) {
             queryWrapper.eq("order_status", status);
         }
-        return page(new Page<>(page, pageSize), queryWrapper).getRecords();
+        List<Order> records = page(new Page<>(page, pageSize), queryWrapper).getRecords();
+        for (Order record : records) {
+            record.setOrderDetails(orderDetailService.list(record.getOrderId(), 1, 99999));
+        }
+        return records;
     }
 }

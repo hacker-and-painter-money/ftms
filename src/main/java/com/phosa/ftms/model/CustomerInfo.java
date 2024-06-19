@@ -22,7 +22,7 @@ public class CustomerInfo {
     private String phoneNumber;
     @JsonProperty("real_name")
     private String realName;
-    private String preferences;
+    private String address;
 
 
 }

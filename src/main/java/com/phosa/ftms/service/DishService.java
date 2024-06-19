@@ -13,7 +13,6 @@ import java.util.List;
 @Service
 public class DishService extends ServiceImpl<DishMapper, Dish> {
 
-    // Add other CRUD or business-specific methods here
     public List<Dish> list(String name, int page, int pageSize) {
         QueryWrapper<Dish> queryWrapper = new QueryWrapper<>();
         if (name != null && !name.isEmpty()) {

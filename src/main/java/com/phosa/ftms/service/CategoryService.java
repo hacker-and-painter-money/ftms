@@ -14,7 +14,6 @@ import java.util.List;
 public class CategoryService extends ServiceImpl<CategoryMapper, Category> {
 
 
-    // Add other CRUD or business-specific methods here
     public List<Category> list(String name, int page, int pageSize) {
         QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
         if (name != null && !name.isEmpty()) {

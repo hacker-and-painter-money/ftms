@@ -13,9 +13,17 @@ import java.util.List;
 @Service
 public class OrderDetailService extends ServiceImpl<OrderDetailMapper, OrderDetail> {
 
-    // Add other CRUD or business-specific methods here
-    public List<OrderDetail> list(int page, int pageSize) {
+    private final DishService dishService;
+
+    public OrderDetailService(DishService dishService) {
+        this.dishService = dishService;
+    }
+
+    public List<OrderDetail> list(long orderId, int page, int pageSize) {
         QueryWrapper<OrderDetail> queryWrapper = new QueryWrapper<>();
-        return page(new Page<>(page, pageSize), queryWrapper).getRecords();
+        queryWrapper.eq("order_id", orderId);
+        List<OrderDetail> records = page(new Page<>(page, pageSize), queryWrapper).getRecords();
+        records.forEach(orderDetail -> orderDetail.setDishName(dishService.getById(orderDetail.getDishId()).getDishName()));
+        return records;
     }
 }

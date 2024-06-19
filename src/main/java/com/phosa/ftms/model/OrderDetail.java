@@ -20,6 +20,8 @@ public class OrderDetail {
   private Long orderId;
   @JsonProperty("dish_id")
   private Long dishId;
+  @TableField(exist = false)
+  private String dishName;
   private Integer quantity;
   private Double price;
   @JsonProperty("created_at")

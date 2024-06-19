@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName("`order`")
 public class Order {
 
   @JsonProperty("order_id")
@@ -22,6 +24,8 @@ public class Order {
   private String orderStatus;
   @JsonProperty("total_price")
   private Double totalPrice;
+  @TableField(exist = false)
+  private List<OrderDetail> orderDetails;
   @JsonProperty("created_at")
   @TableField(fill = FieldFill.INSERT)
   private Date createdAt;

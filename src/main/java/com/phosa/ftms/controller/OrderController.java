@@ -2,6 +2,7 @@ package com.phosa.ftms.controller;
 
 import com.phosa.ftms.constant.ErrorResponse;
 import com.phosa.ftms.model.Order;
+import com.phosa.ftms.service.OrderDetailService;
 import com.phosa.ftms.service.OrderService;
 import com.phosa.ftms.util.DateUtil;
 import com.phosa.ftms.util.ResponseUtil;
@@ -17,6 +18,8 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private OrderDetailService orderDetailService;
 
     @GetMapping("")
     public ResponseEntity<?> getAllOrders(@RequestParam(required = false, defaultValue = "") String status,
@@ -45,6 +48,7 @@ public class OrderController {
     @PostMapping("")
     public ResponseEntity<?> addOrder(@RequestBody Order order) {
         boolean b = orderService.save(order);
+        orderDetailService.saveBatch(order.getOrderDetails());
         if (b) {
             return ResponseUtil.getSuccessResponse(order);
         }

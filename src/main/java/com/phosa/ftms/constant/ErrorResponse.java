@@ -13,7 +13,7 @@ public enum ErrorResponse {
     WRONG_PASSWORD (101, "密码错误"),
     USERNAME_EXIST (102, "用户名已存在"),
     USERNAME_NOT_EXIST (103, "用户名不存在"),
-    PHONE_NOT_EXIST(104, "验证码已发送"),
+    PHONE_NOT_EXIST(104, "电话不存在"),
 
     //ChatGroup
     USER_ID_NOT_EXIST (201, "用户ID不存在"),

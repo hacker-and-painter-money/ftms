@@ -2,8 +2,10 @@ package com.phosa.ftms.controller;
 
 import com.phosa.ftms.constant.ErrorResponse;
 import com.phosa.ftms.model.Order;
+import com.phosa.ftms.model.User;
 import com.phosa.ftms.service.OrderDetailService;
 import com.phosa.ftms.service.OrderService;
+import com.phosa.ftms.service.UserService;
 import com.phosa.ftms.util.DateUtil;
 import com.phosa.ftms.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private OrderDetailService orderDetailService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("")
     public ResponseEntity<?> getAllOrders(@RequestParam(required = false, defaultValue = "") String status,
@@ -47,8 +51,12 @@ public class OrderController {
 
     @PostMapping("")
     public ResponseEntity<?> addOrder(@RequestBody Order order) {
-        boolean b = orderService.save(order);
-        orderDetailService.saveBatch(order.getOrderDetails());
+        userService.save(order.getUser());
+        order.setUserId(order.getUser().getUserId());
+        orderService.save(order);
+        Long orderId = order.getOrderId();
+        order.getOrderDetails().forEach(orderDetail -> orderDetail.setOrderId(orderId));
+        boolean b = orderDetailService.saveBatch(order.getOrderDetails());
         if (b) {
             return ResponseUtil.getSuccessResponse(order);
         }

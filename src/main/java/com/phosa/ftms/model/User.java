@@ -15,7 +15,6 @@ public class User {
   @JsonProperty("user_id")
   @TableId(type = IdType.AUTO)
   private Long userId;
-  private String username;
   @JsonProperty("is_real_name")
   @TableField(fill = FieldFill.INSERT)
   private Long isRealName;
@@ -26,6 +25,7 @@ public class User {
   @TableField(fill = FieldFill.UPDATE)
   private Date updatedAt;
   @JsonProperty("customer_info")
+  @TableField(exist = false)
   private CustomerInfo customerInfo;
 
 

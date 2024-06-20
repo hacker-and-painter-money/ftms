@@ -21,9 +21,10 @@ public class Order {
   @JsonProperty("user_id")
   private Long userId;
   @JsonProperty("order_status")
-  private String orderStatus;
+  private int orderStatus;
   @JsonProperty("total_price")
   private Double totalPrice;
+  @JsonProperty("order_details")
   @TableField(exist = false)
   private List<OrderDetail> orderDetails;
   @JsonProperty("created_at")
@@ -32,4 +33,6 @@ public class Order {
   @JsonProperty("updated_at")
   @TableField(fill = FieldFill.UPDATE)
   private Date updatedAt;
+  @TableField(exist = false)
+  private User user;
 }

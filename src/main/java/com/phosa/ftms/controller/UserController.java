@@ -47,8 +47,12 @@ public class UserController {
 
     @PostMapping("")
     public ResponseEntity<?> addUser(@RequestBody User user) {
+        User userByPhone = userService.getUserByPhone(user.getCustomerInfo().getPhoneNumber());
+        if (userByPhone != null) {
+            return ResponseUtil.getSuccessResponse(user);
+        }
+
         boolean b = userService.save(user);
-        customerInfoService.save(user.getCustomerInfo());
         if (b) {
             return ResponseUtil.getSuccessResponse(user);
         }

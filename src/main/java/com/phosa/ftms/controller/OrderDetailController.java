@@ -1,6 +1,7 @@
 package com.phosa.ftms.controller;
 
 import com.phosa.ftms.constant.ErrorResponse;
+import com.phosa.ftms.model.Dish;
 import com.phosa.ftms.model.OrderDetail;
 import com.phosa.ftms.service.OrderDetailService;
 import com.phosa.ftms.util.DateUtil;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/order_detail")
@@ -60,5 +62,11 @@ public class OrderDetailController {
             return ResponseUtil.getSuccessResponse(orderdetail);
         }
         return ResponseUtil.getFailResponse(ErrorResponse.INVALID_ID);
+    }
+    // 统计接口，统计每一个菜品的销售量
+    @GetMapping("/statistics")
+    public ResponseEntity<?> statistics() {
+        Map<String, Integer> map = orderdetailService.statistics();
+        return ResponseUtil.getSuccessResponse(map);
     }
 }

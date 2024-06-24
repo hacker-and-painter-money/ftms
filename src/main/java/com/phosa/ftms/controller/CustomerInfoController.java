@@ -2,7 +2,9 @@ package com.phosa.ftms.controller;
 
 import com.phosa.ftms.constant.ErrorResponse;
 import com.phosa.ftms.model.CustomerInfo;
+import com.phosa.ftms.model.User;
 import com.phosa.ftms.service.CustomerInfoService;
+import com.phosa.ftms.service.UserService;
 import com.phosa.ftms.util.DateUtil;
 import com.phosa.ftms.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customerinfo")
+@RequestMapping("/customer_info")
 public class CustomerInfoController {
 
     @Autowired
     private CustomerInfoService customerinfoService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("")
     public ResponseEntity<?> getAllCustomerInfos(@RequestParam(name = "page", defaultValue = "1") int page,
@@ -45,6 +49,9 @@ public class CustomerInfoController {
     public ResponseEntity<?> addCustomerInfo(@RequestBody CustomerInfo customerinfo) {
         boolean b = customerinfoService.save(customerinfo);
         if (b) {
+            User byId = userService.getById(customerinfo.getUserId());
+            byId.setIsRealName(1L);
+            userService.updateById(byId);
             return ResponseUtil.getSuccessResponse(customerinfo);
         }
         return ResponseUtil.getFailResponse(ErrorResponse.SERVER_ERROR);

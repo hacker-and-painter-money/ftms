@@ -13,6 +13,12 @@ import java.util.List;
 
 @Service
 public class StaffService extends ServiceImpl<StaffMapper, Staff> {
+    private final RoleService roleService;
+
+    public StaffService(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
     public Staff login(String identifier, String password) {
         QueryWrapper<Staff> wrapper = new QueryWrapper<>();
         wrapper.eq("name", identifier);
@@ -34,7 +40,11 @@ public class StaffService extends ServiceImpl<StaffMapper, Staff> {
         if (name != null && !name.isEmpty()) {
             queryWrapper.like("name", name);
         }
-        return page(new Page<>(page, pageSize), queryWrapper).getRecords();
+        List<Staff> records = page(new Page<>(page, pageSize), queryWrapper).getRecords();
+        records.forEach(record -> {
+            record.setRoleName(roleService.getById(record.getRoleId()).getRoleName());
+        });
+        return records;
     }
 
 }

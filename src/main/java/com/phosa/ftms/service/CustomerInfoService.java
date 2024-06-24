@@ -17,4 +17,14 @@ public class CustomerInfoService extends ServiceImpl<CustomerInfoMapper, Custome
         QueryWrapper<CustomerInfo> queryWrapper = new QueryWrapper<>();
         return page(new Page<>(page, pageSize), queryWrapper).getRecords();
     }
+
+    public CustomerInfo getByUserId(Long userId) {
+        QueryWrapper<CustomerInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", userId);
+        List<CustomerInfo> list = list(wrapper);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
 }

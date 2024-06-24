@@ -16,5 +16,8 @@ public class Staff {
   private String name;
   @JsonProperty("role_id")
   private Long roleId;
+  @JsonProperty("role_name")
+  @TableField(exist = false)
+  private String roleName;
   private String password;
 }

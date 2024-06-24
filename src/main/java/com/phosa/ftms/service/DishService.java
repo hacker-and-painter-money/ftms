@@ -9,6 +9,7 @@ import com.phosa.ftms.util.AesEncryptUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DishService extends ServiceImpl<DishMapper, Dish> {
@@ -20,4 +21,6 @@ public class DishService extends ServiceImpl<DishMapper, Dish> {
         }
         return page(new Page<>(page, pageSize), queryWrapper).getRecords();
     }
+
+
 }

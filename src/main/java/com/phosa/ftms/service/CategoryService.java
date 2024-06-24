@@ -14,6 +14,16 @@ import java.util.List;
 public class CategoryService extends ServiceImpl<CategoryMapper, Category> {
 
 
+    public Category getCategoryByName(String name) {
+        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("category_name", name);
+        Category one = getOne(queryWrapper);
+        if (one == null) {
+            return new Category(-1L, "其他");
+        }
+        return one;
+    }
+
     public List<Category> list(String name, int page, int pageSize) {
         QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
         if (name != null && !name.isEmpty()) {

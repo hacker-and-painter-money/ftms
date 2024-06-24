@@ -15,17 +15,18 @@ public enum ErrorResponse {
     USERNAME_NOT_EXIST (103, "用户名不存在"),
     PHONE_NOT_EXIST(104, "电话不存在"),
 
-    //ChatGroup
+
     USER_ID_NOT_EXIST (201, "用户ID不存在"),
     CHAT_GROUP_ID_NOT_EXIST (202, "聊天组ID不存在"),
     USER_ALREADY_JOINED (203, "用户已加入"),
     NAME_EXIST(204, "名称已存在"),
 
-    //Point
+
     USER_ID_EXIST (301, "用户ID已存在"),
 
-    //Question
+    //
     CONTENT_VIOLATION(401, "内容违规"),
+    INVALID_FILE(402, "无效文件"),
 
     Error(999, "错了");
 

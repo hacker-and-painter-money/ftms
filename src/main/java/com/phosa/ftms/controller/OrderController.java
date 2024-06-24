@@ -27,9 +27,10 @@ public class OrderController {
 
     @GetMapping("")
     public ResponseEntity<?> getAllOrders(@RequestParam(required = false, defaultValue = "") String status,
+                                                  @RequestParam(name = "user_id", required = false) Long userId,
                                                   @RequestParam(name = "page", defaultValue = "1") int page,
                                                   @RequestParam(name = "page_size", defaultValue = "10") int pageSize) {
-        List<Order> orderList = orderService.list(status, page, pageSize);
+        List<Order> orderList = orderService.list(status, userId, page, pageSize);
         return ResponseUtil.getSuccessResponse(orderList);
     }
 

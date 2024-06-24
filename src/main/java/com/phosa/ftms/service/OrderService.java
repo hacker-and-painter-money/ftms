@@ -18,10 +18,13 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
         this.orderDetailService = orderDetailService;
     }
 
-    public List<Order> list(String status, int page, int pageSize) {
+    public List<Order> list(String status, Long userId, int page, int pageSize) {
         QueryWrapper<Order> queryWrapper = new QueryWrapper<>();
         if (status != null && !status.isEmpty()) {
             queryWrapper.eq("order_status", status);
+        }
+        if (userId != null) {
+            queryWrapper.eq("user_id", userId);
         }
         List<Order> records = page(new Page<>(page, pageSize), queryWrapper).getRecords();
         for (Order record : records) {

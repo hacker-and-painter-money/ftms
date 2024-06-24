@@ -15,6 +15,8 @@ public class User {
   @JsonProperty("user_id")
   @TableId(type = IdType.AUTO)
   private Long userId;
+  private String username;
+  private String password;
   @JsonProperty("is_real_name")
   @TableField(fill = FieldFill.INSERT)
   private Long isRealName;

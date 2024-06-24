@@ -1,6 +1,7 @@
 package com.phosa.ftms.controller;
 
 import com.phosa.ftms.constant.ErrorResponse;
+import com.phosa.ftms.model.Staff;
 import com.phosa.ftms.model.User;
 import com.phosa.ftms.service.CustomerInfoService;
 import com.phosa.ftms.service.UserService;
@@ -78,5 +79,16 @@ public class UserController {
         }
         return ResponseUtil.getFailResponse(ErrorResponse.PHONE_NOT_EXIST);
 
+    }
+
+
+    //login
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        User target = userService.login(user.getUsername(), user.getPassword());
+        if (target != null) {
+            return ResponseUtil.getSuccessResponse(target);
+        }
+        return ResponseUtil.getFailResponse(ErrorResponse.WRONG_PASSWORD);
     }
 }
